@@ -1,0 +1,26 @@
+function searchProducts() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const productsContainer = document.getElementById('products-container');
+    productsContainer.innerHTML = '';
+
+    const allProducts = [...products.vegetables, ...products.fruits, ...products.herbs, ...products.organic];
+    const filteredProducts = allProducts.filter(product => product.name.toLowerCase().includes(query));
+
+    filteredProducts.forEach(product => {
+        productsContainer.innerHTML += `
+            <div class="product-card">
+                <img src="${product.image}" alt="${product.name}" class="product-image">
+                <div class="product-info">
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <p>Ksh ${product.price.toFixed(2)}</p>
+                    <button onclick="addToCart$({product.id})" class="btn">Add to Cart</button>
+                </div>
+            </div>
+        `;
+    });
+
+    if (filteredProducts.length === 0) {
+        productsContainer.innerHTML = '<p>No products found.</p>';
+    }
+} 

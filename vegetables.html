@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>AgroCraft - Vegetables</title>
+</head>
+<body>
+    <header>
+        <h1>AGROFARM SHOP</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="fruits.html">Fruits</a></li>
+                <li><a href="herbs.html">Herbs</a></li>
+                <li><a href="organic.html">Organic</a></li>
+                <li><a href="cart.html">View Cart</a></li>
+            </ul>
+        </nav>
+        <div>
+            Cart: <span id="cartCount">0</span>
+        </div>
+    </header>
+
+    <section class="product-display">
+        <h2>Our Vegetables</h2>
+        <div class="product-container">
+            <div class="product-item">
+            <img src="photos of products.html/cucumbers.jpg" alt="cucumbers">
+            <h3>Fresh cucumbers</h3>
+            <p>Ksh 150 / kg</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product-item">
+            <img src="photos of products.html\tomatoes.jpg" alt="Tomatoes">
+            <h3>Fresh Tomatoes</h3>
+            <p>Ksh 310 / kg</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-item">
+            <img src="photos of products.html\white onions.jpg" alt="White Onions">
+            <h3>White Onions</h3>
+            <p>Ksh 300 / kg</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-item">
+            <img src="photos of products.html/potatoes.jpg" alt="potatoes">
+            <h3>Fresh potatoes</h3>
+            <p>Ksh 260.00 / kg</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+
+
+        <!-- Add more vegetable items here -->
+    </section>
+
+    <footer>
+        <p>&copy; 2024 AgroCraft. All rights reserved.</p>
+        <p><a href="#contact">Contact Us</a></p>
+    </footer>
+
+    <script>
+        function initCart() {
+            const storedCart = localStorage.getItem('cart');
+            return storedCart ? JSON.parse(storedCart) : [];
+        }
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        let cart = initCart();
+
+        function addToCart(productName, productPrice) {
+            cart.push({ name: productName, price: productPrice });
+            saveCart();
+            alert(`${productName} added to cart!`);
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const cartCount = document.getElementById("cartCount");
+            cartCount.innerText = cart.length;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount(); // Update count on page load
+
+            // Add event listeners to buttons
+            document.querySelectorAll('.add-to-cart').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const productItem = button.parentElement;
+                    const productName = productItem.querySelector('h3').innerText;
+                    const productPrice = productItem.querySelector('p').innerText;
+                    addToCart(productName, productPrice);
+                });
+            });
+        });
+
+        const products = {
+            'carrot': {
+                id: 101,
+                name: 'Carrot',
+                price: 1.49,
+                image: 'images/carrot.jpg'
+            },
+            // Add other vegetable products
+        };
+    </script>
+</body>
+</html>
